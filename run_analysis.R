@@ -49,11 +49,14 @@ subjectTrain   <- read.table(subjectTrainFile)
 
 ## 1. Merge the training and test sets into one data set.
 names(xTest) <- features
-names(yTest) <- features
 names(xTrain) <- features
-names(yTrain) <- features
+xTestTrain <- rbind(xTest, xTrain)
 
 ## 2. Extract measurements on the mean and standard deviation
+##    Subset xTestTrain by finding the column names which contain 
+##    either (mean) or standard deviation (std) and then including only
+##    those columns back into the data set.
+xTestTrain <- xTestTrain[ , grepl("mean|std", features)]
 
 ## 3. Define activity names
 
